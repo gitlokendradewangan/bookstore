@@ -1,19 +1,51 @@
 import { Component } from "react";
-import { authContext } from "../AuthContext";
 import { connect } from "react-redux";
-import { login } from "../stateManagement/action";
 
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+
+import { login } from "../stateManagement/action";
+import { authContext } from "../AuthContext";
+
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const styles = {
   root: {
     height: "100vh",
     padding: 100,
-    background: "red",
+    backgroundImage: "linear-gradient(#f3f3f4 50%, #e7e8e9 50%)",
+    alignContent: "center",
   },
   grid: {
-    background: "yellow",
+    background: "white",
+    height: "calc( 100vh - 50vh)",
+    paddingLeft: 140,
+    paddingRight: 140,
+  },
+  header: {
+    fontSize: "x-large",
+    padding: "15px",
+    textAlign: "center",
+  },
+  center: { textAlign: "center" },
+  moreOption: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  formButton: {
+    padding: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
 };
 
@@ -48,17 +80,52 @@ class Login extends Component {
     const { classes } = this.props;
     return (
       <Grid container className={classes.root}>
-        <Grid item xs={12} className={classes.grid}>
-          <input
-            value={username}
-            onChange={(e) => this.handleInput(e.target.value, "username")}
-          />
-          <input
-            value={password}
-            onChange={(e) => this.handleInput(e.target.value, "password")}
-          />
-          <input type="button" value="login" onClick={this.handleLogin} />
-        </Grid>
+        <CssBaseline />
+        <Container maxWidth="sm" className={classes.grid}>
+          <Grid item xs={12}>
+            <Typography className={classes.header}>Login</Typography>
+          </Grid>
+          <Grid item xs={12} className={classes.center}>
+            <TextField
+              label="Username"
+              value={username}
+              fullWidth={true}
+              margin="dense"
+              variant="outlined"
+              onChange={(e) => this.handleInput(e.target.value, "username")}
+            />
+          </Grid>
+          <Grid item xs={12} className={classes.center}>
+            <TextField
+              label="Password"
+              value={password}
+              fullWidth={true}
+              margin="dense"
+              variant="outlined"
+              type={"password"}
+              onChange={(e) => this.handleInput(e.target.value, "password")}
+            />
+          </Grid>
+          <Grid item xs={12} className={classes.moreOption}>
+            <FormGroup row>
+              <FormControlLabel
+                control={<Checkbox color="primary" />}
+                label="Remember me"
+              />
+            </FormGroup>
+            <Link href="#">Forgot password?</Link>
+          </Grid>
+          <Grid item xs={12} className={classes.formButton}>
+            <Button variant="outlined">Reset</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleLogin}
+            >
+              Login
+            </Button>
+          </Grid>
+        </Container>
       </Grid>
     );
   }

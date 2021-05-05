@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/PowerSettingsNew";
+import { authContext } from "../AuthContext";
 
 const useStyles = makeStyles({
   grow: {
@@ -19,25 +21,25 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   container: {
-    paddingTop: "64px",
-    maxHeight: "calc( 100vh - 64px )",
+    paddingTop: "75px",
+    maxHeight: "calc( 100vh - 75px )",
   },
 });
 
 function MyAppBar({ children }) {
   const classes = useStyles();
-
+  const auth = useContext(authContext);
   return (
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className={classes.div}>
-            <Typography color="textSecondary">{"Guest name"}</Typography>
+            <Typography color="textSecondary">{auth.user?.username}</Typography>
             <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
               aria-haspopup="true"
-              color="textPrimary"
+              onClick={() => auth.signout()}
             >
               <AccountCircle />
             </IconButton>
@@ -48,5 +50,9 @@ function MyAppBar({ children }) {
     </div>
   );
 }
+
+MyAppBar.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default MyAppBar;

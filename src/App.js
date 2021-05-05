@@ -8,7 +8,7 @@ import "./App.css";
 // pages
 const Login = React.lazy(() => import("./pages/Login"));
 const BookListing = React.lazy(() => import("./pages/BookListing"));
-const AppBar = React.lazy(() => import("./components/AppBar"));
+// const AppBar = React.lazy(() => import("./components/AppBar"));
 
 function GuestRoutes() {
   return (
