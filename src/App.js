@@ -33,7 +33,7 @@ function AdminRoutes() {
 function LoginRoutes() {
   return (
     <>
-      <Route path={routes.login} exact={true} component={BookListing} />
+      <Route path={routes.login} exact={true} component={Login} />
     </>
   );
 }
