@@ -8,6 +8,7 @@ import "./App.css";
 // pages
 const Login = React.lazy(() => import("./pages/Login"));
 const BookListing = React.lazy(() => import("./pages/BookListing"));
+const AuthorListing = React.lazy(() => import("./pages/AuthorListing"));
 // const AppBar = React.lazy(() => import("./components/AppBar"));
 
 function GuestRoutes() {
@@ -24,7 +25,7 @@ function AdminRoutes() {
       <Route
         path={routes.authorListing}
         exact={true}
-        component={() => <h1>author-listing-page</h1>}
+        component={AuthorListing}
       />
     </>
   );
@@ -33,7 +34,7 @@ function AdminRoutes() {
 function LoginRoutes() {
   return (
     <>
-      <Route path={routes.login} exact={true} component={Login} />
+      <Route path={routes.login} exact={true} component={AuthorListing} />
     </>
   );
 }

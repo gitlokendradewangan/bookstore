@@ -9,9 +9,6 @@ import AccountCircle from "@material-ui/icons/PowerSettingsNew";
 import { authContext } from "../AuthContext";
 
 const useStyles = makeStyles({
-  grow: {
-    flexGrow: 1,
-  },
   appBar: {
     alignItems: "flex-end",
     backgroundColor: "white",
@@ -30,7 +27,7 @@ function MyAppBar({ children }) {
   const classes = useStyles();
   const auth = useContext(authContext);
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className={classes.div}>

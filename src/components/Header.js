@@ -13,7 +13,7 @@ import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles({
   grow: {
-    flexGrow: 1,
+    overflowX: "hidden",
   },
   container: {
     justifyContent: "center",
@@ -47,33 +47,48 @@ const useStyles = makeStyles({
   },
 });
 
-function Header({ children, headerName }) {
+function Header({ children, headerName, searchInputs }) {
   const classes = useStyles();
   const auth = useContext(authContext);
   return (
     <div className={classes.grow}>
       <Grid container spacing={3} className={classes.container}>
         <Grid item xs={5} className={classes.headerRow}>
-          <Paper component="nav" className={classes.root}>
-            <InputBase
-              className={classes.input}
-              placeholder="Search for Authors"
-              inputProps={{ "aria-label": "Search for Authors" }}
-            />
-            <Divider className={classes.divider} orientation="vertical" />
-            <InputBase
-              className={classes.input}
-              placeholder="Search for Books"
-              inputProps={{ "aria-label": "Search for Books" }}
-            />
-            <IconButton
-              type="submit"
-              className={classes.iconButton}
-              aria-label="search"
-            >
-              <SearchIcon />
-            </IconButton>
-          </Paper>
+          {searchInputs.length > 0 && (
+            <Paper component="nav" className={classes.root}>
+              {searchInputs.map((ele, index) => (
+                <>
+                  <InputBase
+                    key={index}
+                    className={classes.input}
+                    placeholder={ele.placeholder}
+                    // "Search for Authors"
+                    value={ele.value}
+                    inputProps={{ "aria-label": ele.placeholder }}
+                    onChange={ele.onChange}
+                  />
+                  {searchInputs[index + 1] && (
+                    <Divider
+                      className={classes.divider}
+                      orientation="vertical"
+                    />
+                  )}
+                </>
+              ))}
+              {/* <InputBase
+                className={classes.input}
+                placeholder="Search for Books"
+                inputProps={{ "aria-label": "Search for Books" }}
+              /> */}
+              <IconButton
+                type="submit"
+                className={classes.iconButton}
+                aria-label="search"
+              >
+                <SearchIcon />
+              </IconButton>
+            </Paper>
+          )}
         </Grid>
       </Grid>
       <Container maxWidth="md">
@@ -87,11 +102,13 @@ function Header({ children, headerName }) {
 
 Header.defaultProps = {
   headerName: null,
+  searchInputs: [],
 };
 
 Header.propTypes = {
   children: PropTypes.element.isRequired,
-  headerName: PropTypes.string,
+  headerName: PropTypes.string.isRequired,
+  searchInputs: PropTypes.array.isRequired,
 };
 
 export default Header;
